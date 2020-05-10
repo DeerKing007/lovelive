@@ -3,7 +3,7 @@ import requests
 
 class Daily_Sentence:
     def __init__(self):
-        self.dictum_channel_name = {1: '词霸(每日英语)', 2: '土味情话'}
+        self.dictum_channel_name = {1: '词霸(每日英语)', 2: '土味情话', 3: '彩虹屁'}
 
     def isJson(self, resp):
         '''
@@ -44,10 +44,27 @@ class Daily_Sentence:
             return resp.text + "\n"
         else:
             print('每日一句获取失败')
-        return None
+            return None
+
+    def get_rainbow_fart(self):
+        '''
+        彩虹屁🌈
+        :return:
+        '''
+        print('获取彩虹屁🌈...')
+        key = '601f30cc0b364cbc6e1a64c6db6dea99'
+        url = 'http://api.tianapi.com/txapi/caihongpi/index?key={}'.format(key)
+        resp = requests.get(url)
+        if resp.status_code == 200 and self.isJson(resp):
+            res = resp.json()['newslist'][0]['content']
+            return res
+        else:
+            print('获取彩虹屁失败')
+            return None
 
 
 if __name__ == '__main__':
     ds = Daily_Sentence()
     print(ds.get_ciba_info())
     print(ds.get_lovelive_info())
+    print(ds.get_rainbow_fart())
